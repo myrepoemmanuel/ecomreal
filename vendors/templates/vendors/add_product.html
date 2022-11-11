@@ -1,0 +1,202 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .add_product_form{
+        display: grid;
+        gap: 10px;
+        position: relative;
+        top: 7.5rem;
+        width: max-content;
+        margin: auto;
+        padding: 20px;
+        background-color: #485564;
+        border-radius: 3px;
+        box-shadow: 0 0 100px 4px black, inset 0 0 50px 5px rgb(26, 26, 26);
+    }
+
+    form{
+        display: grid;
+        grid-template-columns: 40% 1fr;
+        gap: 8px;
+        
+    }
+
+    .details_parent{
+        display: grid;
+        gap: 8px;
+    }
+
+    .product_input_parent{
+        display: grid; 
+        grid-template-columns: 1fr;
+        box-sizing: border-box;
+        gap: 5px; 
+        /* border: 2px red solid; */
+    }
+
+    .product_input_parent input[type="text"], 
+    .product_input_parent input[type="number"],
+    .product_input_parent select
+    {
+        width: 95%;
+        height: 2.5em;
+    }
+
+    .product_input_parent input[type="email"]{
+        width: 65%;
+        height: 2.5em;
+    }
+
+    .product_input_parent textarea{
+        height: 125px;
+        width: 95%;
+        resize: vertical;
+    }
+
+    .product_input_parent select{
+        width: 95%;
+    }
+
+    .product_image_parent{
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px;
+        width: 100%;
+        
+    }
+    .product_image_parent div{
+        border: 2px #787891 solid;
+        width: max-content;
+        border-radius: 5px;
+        padding: 3px;
+    }
+    #add_product_btn{
+        grid-column: span 2; 
+        color: black; 
+        font-size: 1.2em; 
+        font-weight: 700;
+        box-shadow: 0 0 50px 4px black;
+        outline: none;
+    }
+    #add_product_btn:hover{
+        color: white;
+        /* border: 1px whitesmoke solid; */
+        box-shadow: 0 0 50px 4px black, inset 0 0 5px rgb(109, 108, 108);
+    }
+</style>
+
+    <div class="pg-cont add_product_form">
+        <h2 style="margin: 0; color: #39a984a3;">Add Product</h2>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="details_parent">
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.name.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.name }}</span>
+                    </div>
+                </div>
+    
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.price.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.price }}</span>
+                    </div>
+                </div>
+
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.category.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.category }}</span>
+                    </div>
+                </div>
+    
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.Brand.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.Brand }}</span>
+                    </div>
+                </div>
+    
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.description.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.description }}</span>
+                    </div>
+                </div>
+    
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.digital.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.digital }}</span>
+                    </div>
+                </div>
+    
+                
+    
+                
+            </div>
+            
+            <div class="image_parent">
+                
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.email.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.email }}</span>
+                    </div>
+                </div>
+
+                <h3 style="margin: 15px 0 10px 0">Choose Product Images Below</h3>
+
+                <div class="product_image_parent">
+                    <div>
+                        <span>{{ form.image }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.image2 }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.image3 }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.image4 }}</span>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <input id="add_product_btn" type="submit" value="Submit">
+
+            
+    
+    
+        </form>
+    </div>
+
+
+
+    
+
+
+
+
+{% endblock %}

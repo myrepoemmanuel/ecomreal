@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block content %}
+   
+   <style>
+        .logout-cont{
+            margin-top: 3%;
+            margin-left: 7%;
+            max-height: 20vh;
+            width: 60%;
+            background: black;
+            opacity: .8;
+            padding: 20px;
+            box-shadow: 5px 5px 5px black, -5px -5px 5px black;
+            
+        }
+    </style>
+    
+    <div class="logout-cont">
+     
+            <div style="position: relative;">
+                
+            <p style="font-size: 35px;">Successfully logged out </p>
+            </div>
+            
+            <div style="position: relative;">
+                <a style="text-decoration: none; padding: 8px 20px;" class="success-btn" href="{% url 'users:site-login' %}">Log in</a>
+            </div>
+            
+            
+        
+    </div>
+
+{% endblock %}

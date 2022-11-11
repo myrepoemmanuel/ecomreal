@@ -1,0 +1,111 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+{% block content %}
+    <style>
+        .reg-cont-box{
+            width: 100%;
+            height: 100vh;
+            display: grid; 
+            place-items: center;
+            /*overflow: hidden;*/
+        }
+        .reg-cont{
+            position: relative;
+            top: 2.5rem;
+            width: 50%;
+            height: 80%;
+            align-self: center;
+            color: whitesmoke;
+            overflow-y: auto;
+            background: #070d12;
+            opacity: .8;
+            padding: 20px;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2), -5px -5px 5px rgba(0, 0, 0, 0.2);
+            
+        }
+        form label{
+            display: grid;
+            color: antiquewhite;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+        
+        form input{
+            margin: 0 10px;
+            width: 85%;
+            height: 4vh;
+            outline: none;
+            background: transparent;
+            color: white;
+            padding-left: 10px;
+            border: 1px #93a46f66  solid;
+        }
+        form small{
+            margin-left: 10px;
+            display: grid;
+            
+        }
+
+        form small ul{
+            list-style: none;
+            margin: 0 10px;
+            padding: 0;
+            
+        }
+        #id_username{
+            margin: 0 10px;
+            width: 85%;
+            height: 3vh;
+            border-radius: 0;
+        }
+        
+        .success-btn2{
+            background: green;
+            color: white;
+            height: 4.3vh;
+            width: 15vh;
+            border-radius: 5px;
+            margin-left: 10px;
+            border: none;
+            font-weight: 500;
+        }
+        
+        
+    </style>
+    
+    <section class="reg-cont-box">
+    <div class="reg-cont">
+       <h1 style="color: white;">Sign Up</h1>
+       <hr style="margin: 15px 0">
+        <form method="post">
+          {% csrf_token %}
+          {% if form.errors %}
+          <h3 style="color:red;">Ensure you've followed all password validation rules</h3>
+          {% endif %}
+           {% for field in form %}
+             
+                 {{ field.label_tag }}<br>
+                 
+                 <div>{{ field }}</div><br>
+                 
+                 
+
+                 {% if field.help_text %}
+                     <small>{{ field.help_text }}</small><br>
+                 {% endif %}
+                  <hr style="margin: 15px 0">
+             
+            {% endfor %}
+            <div style="position: relative;display: grid; grid-template-columns: 1fr 1fr; place-items: center;width: 85%;">
+            
+            <button class="success-btn2" style="justify-self: left;" type="submit">Sign up</button>
+            
+            <p style="color: #93a46f;">Already have an account <a style="color: white; font-weight: 700;" href="{% url 'users:site-login' %}">Log in</a></p>
+            
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

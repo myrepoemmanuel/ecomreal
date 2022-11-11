@@ -1,0 +1,43 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+{% block content %}
+   
+   <style>
+        .logout-cont{
+            width: 60%;
+            background: #070d12;
+            padding: 20px;
+            position: relative;
+            top: 15vh;
+            display: grid;
+            gap: 25px;
+        }
+
+        .logout-cont div{
+            position: relative;
+        }
+
+        .logout-cont p{
+            margin: 0;
+            font-size: 35px;
+        }
+
+
+    </style>
+    
+    <div class="logout-cont">
+     
+            <div>
+                <p>Successfully logged out </p>
+            </div>
+            
+            <div>
+                <a style="text-decoration: none; padding: 8px 20px;" class="success-btn" href="{% url 'users:site-login' %}">Log in</a>
+            </div>
+            
+            
+        
+    </div>
+
+{% endblock %}

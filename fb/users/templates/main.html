@@ -1,0 +1,64 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      
+      
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script type="text/javascript">
+            let user = '{{request.user}}';
+            
+          
+            function getToken(name){
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== ''){
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++){
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0 , name.length + 1) === (name + '=')){
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+            }
+            const csrftoken = getToken('csrftoken')
+
+            
+      </script>
+      
+
+    </head>
+    <body style="background-color:rgba(53, 64, 76, 0.98);">
+
+        
+        {% block content %}
+        
+        
+
+        {% endblock %}
+        <script type="text/javascript" src="{% static 'js/fb.js' %}">
+
+
+
+        </script>
+            
+            
+            
+            
+            
+            
+        
+        
+        
+    </body>
+    
+</html>
+
+
+
+
+

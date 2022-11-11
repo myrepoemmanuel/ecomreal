@@ -1,0 +1,152 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block content %}
+    <style>
+       
+        .friend_parent{
+            position: relative;
+            max-width: max-content;
+            height: max-content;
+            display: grid;
+            gap: 10px;
+            grid-template-rows: max-content 1fr;
+            grid-template-columns: 1fr;
+            margin: auto;
+            box-sizing: border-box;
+            padding: 3rem;
+            background-color: rgba(151, 133, 211, 0.625);
+        }
+       
+        .all_requests{
+            display: grid; 
+            position: relative;
+            grid-template-columns: repeat(2, max-content); 
+            gap: 3rem;
+        }
+
+        @media only screen and (max-width: 670px) {
+            .all_requests{
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .available_friend{
+            position: relative;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: max-content max-content max-content;
+            align-items: center;
+            background-color: rgba(51, 55, 56, 0.6);
+            padding: 1.5rem;
+            border-radius: 5px;
+            color: white;
+        }
+
+        @media only screen and (max-width: 1100px) {
+            .available_friend{
+                grid-template-columns: max-content 1fr;
+                width: max-content;
+            }
+            .rq_buttons{
+                grid-column: span 2;
+            }
+        }
+
+        .rq_buttons{
+            display:grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 5px;
+        }
+
+        .request-btn{
+            width: 100px; 
+            padding-block: 8px; 
+            text-align: center; 
+            color: whitesmoke;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <section class="friend_parent">
+        <div>
+            <h1 style="margin: 0; color: white; font-size: 2rem;">
+                Find Friends
+            </h1>
+            <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:5px; margin: 10px auto; width: max-content;">
+                <a href="{% url 'friend:allfriends' %}">
+                    <button style="width: max-content;padding: 10px 14px; color: black;" class="request-btn" >My friends</button>
+                </a>
+                <a href="{% url 'friend:friendsRequest' %}">
+                    <button style="width: max-content;padding: 10px 14px;color: black;" class="request-btn">Friend Requests</button>
+                </a>
+                <a href="{% url 'users:site-profile' %}">
+                    <button style="width: max-content;padding:10px 14px;color: black;" class="request-btn">Profile</button>
+                </a>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem;">
+            
+            {% for friend in probable_friends %}
+            <div class="available_friend">
+                <span style="border: 1px whitesmoke solid; border-radius: 3px; width: 50px; height: 50px;">
+                    <img src="{{ friend.image }}" alt="">
+                </span>
+                <span style="font-size: 1.2rem;">
+                    {{ friend.first_name | capfirst }} {{ friend.last_name | capfirst }}
+                </span>
+                <span class="rq_buttons">
+                    <button style="background-color: green;" class="request-btn" data-friend={{friend.user_id}} id="send_request">Send</button>
+                    <button style="background-color: red;" onclick="alert('under maintainance')" class="request-btn" data-friend={{friend.user_id}} id="delete_request">Delete</button>
+                </span>
+            </div>
+            {% endfor %}
+            
+
+            
+        </div>
+    </section>
+
+    <script type="text/javascript">
+
+    document.getElementById('send_request').addEventListener('click', function(){
+        
+        submitFormData(this.dataset.friend)
+        console.log(this.dataset.friend)
+    })
+    
+    
+    
+    
+    function submitFormData(friend_id){
+        var friend_detail = {
+            'friend_id': friend_id,
+        }
+
+        var url = 'process_friend/';
+
+                fetch(url, {
+                    method:'POST',
+                    headers: {
+                        'Content-Type':'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body:JSON.stringify({'friend_detail': friend_detail,})
+
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('success:',data);
+                    alert('friend request sent');
+                    window.location.reload
+                })
+        
+        
+    }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block content %}
+    <style>
+       
+        .friend_parent{
+            position: relative;
+            max-width: max-content;
+            height: max-content;
+            display: grid;
+            gap: 10px;
+            grid-template-rows: max-content 1fr;
+            grid-template-columns: 1fr;
+            margin: auto;
+            box-sizing: border-box;
+            padding: 3rem;
+            background-color: rgba(151, 133, 211, 0.625);
+        }
+       
+        .all_requests{
+            display: grid; 
+            position: relative;
+            grid-template-columns: repeat(2, max-content); 
+            gap: 3rem;
+        }
+
+        @media only screen and (max-width: 670px) {
+            .all_requests{
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .available_friend{
+            position: relative;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: max-content max-content;
+            align-items: center;
+            background-color: rgba(51, 55, 56, 0.6);
+            padding: 1.5rem;
+            border-radius: 5px;
+            color: white;
+        }
+        .request-btn{
+            width: 100px; 
+            padding-block: 8px; 
+            text-align: center; 
+            color: black;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        
+    </style>
+
+    <section class="friend_parent">
+        <div>
+            <h1 style="margin: 0; color: white; font-size: 2rem;">
+                Friends
+            </h1>
+            <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:5px; margin: 10px auto; width: max-content;">
+                <a href="{% url 'friend:friends' %}">
+                    <button style="width: max-content;padding: 10px 14px;" class="request-btn" >Find friends</button>
+                </a>
+                <a href="{% url 'friend:friendsRequest' %}">
+                    <button style="width: max-content;padding: 10px 14px;" class="request-btn">Friend Requests</button>
+                </a>
+                <a href="{% url 'users:site-profile' %}">
+                    <button style="width: max-content;padding:10px 14px;color: black;" class="request-btn">Profile</button>
+                </a>
+            </div>
+        </div>
+        <div class="all_requests">
+            {% for friends in all_friends %}
+            
+            <div class="available_friend">
+                <span style="border: 1px whitesmoke solid; border-radius: 3px; width: 50px; height: 50px;">
+                    <img src="{{ friend.image }}" alt="">
+                </span>
+                <span style="font-size: 1.2rem;">
+                    {{ friends.first_name | capfirst }} {{ friends.last_name | capfirst }}
+                </span>
+                
+            </div>
+            {% endfor %}
+
+            
+        </div>
+    </section>
+
+
+{% endblock %}

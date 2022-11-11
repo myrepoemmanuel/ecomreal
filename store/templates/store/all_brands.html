@@ -1,0 +1,80 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    <style>
+        .store-categories{
+            list-style: none;
+        }
+        .store-categories a{
+            position: relative;
+            display: grid;
+            place-items: center;
+            padding: 8px 16px;
+            background-color: rgba(1, 65, 65, 0.6);
+            width: max-content;
+            height: 100%;
+            color: whitesmoke;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        .store-categories a::before{
+            content: '';
+            position: absolute;
+            top: -400%;
+            left: -60%;
+            width: 80%;
+            height: 400%;
+            background-color: rgba(255, 255, 255, 0.75);
+            transition: all 0.8s;
+            border-radius: 30%;
+            z-index: -1;
+            
+        }
+        .store-categories a:hover::before{
+            transform-origin: bottom;
+            transform: rotate(109deg);
+        }
+    </style>
+    
+    <div class="labels-wrapper-box">
+        
+        <div class="store-child-1">
+        
+        <ul class="store-categories">
+            <li style="padding-bottom: 25px;">
+                <h1 style="font-weight: 700;margin: 0;">{{title | capfirst}}</h1>
+            </li>
+            {% for minibrand in miniBrand_Categories %}
+            <li style="margin-bottom: 15px;"><a href="#">{{minibrand.name | capfirst}}</a></li>
+            {% endfor %}
+            
+        </ul>
+            
+        </div>
+        
+        <div style="position: relative;" class="store-child-2">
+            
+            {% for product in products %}
+                
+                
+                
+                <div class="card">
+                    <img  style="width:100%; height:200px;" src="{{product.imageURL}}" alt="">
+
+                    <p id="pname">{{ product.name }}</p>
+
+
+                    <p class="price">Ksh {{ product.price|floatformat:2 }}</p>
+
+                    <div style="width: 95%; border-radius: 15px; margin: auto; ">
+                        <button data-product={{product.id}} data-action='add' class="btn update-cart hide">Add To Cart</button>
+                    </div>
+                </div>
+            {% endfor %}            
+        </div>
+    </div>
+
+{% endblock %}

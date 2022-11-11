@@ -1,0 +1,99 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    <div class="pg-cont">
+        <div class="vendor_shop_details">
+            <span class="vendor_pic">
+                <img style="width: 100%; height: 100%; object-fit: cover;" src="{{vendor.imageURL}}" alt="">
+            </span>
+            <span class="vendor_description">
+                <h4>{{ vendor.shop_description | capfirst }}</h4>
+            </span>
+            <span class="vendor_name">
+                <h3 style="margin: 0;">{{ vendor.shop_name | capfirst }}</h3>
+            </span>
+        </div>
+
+        <div class="vendor_categories">
+            {% for category in unique_categories %}
+            <a href="{% url 'vendors:vendor_categories' vendor.shop_name category.name %}" class="store-child-{{category.id}} page-tags">
+
+                <div class="image-holder">
+                    <img src="{{ category.imageURL }}" alt="">
+                </div>
+                
+                <h3>{{ category | upper }}</h3>
+
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="vendor_shop">
+            
+            <div class="store-child-1">
+            
+            <ul class="vendor_filters">
+                <li style="padding-bottom: 9px; font-size: 25px;">
+                    Filters
+                </li>
+                <li class="filter">
+                    <a href="#">custom search</a>
+                </li>
+                <li class="filter">
+                    <a href="#">shoes</a>
+                </li>
+                <li class="filter">
+                    <a href="#">shirts</a>
+                </li>
+                <li class="filter">
+                    <a href="#">t-shirts</a>
+                </li>
+                <li class="filter">
+                    <a href="#">name</a>
+                </li>
+                <li class="filter">
+                    <a href="#">shoe size</a>
+                </li>
+                <li class="filter">
+                    <a href="#">color</a>
+                </li>
+            </ul>
+                
+            </div>
+            
+            <div style="position: relative;" class="store-child-2">
+                
+                {% for product in products %}
+                    
+                    
+                    <div class="card">
+                        <img  style="width:100%; height:200px;" src="{{product.imageURL}}" alt="">
+
+                            <p id="pname">{{ product.name }}</p>
+
+
+                        <p class="price">Ksh {{ product.price|floatformat:2 }}</p>
+
+                        <div style="width: 95%; border-radius: 15px; margin: auto; ">
+                            <button data-product={{product.id}} data-action='add' class="btn update-cart hide">Add To Cart</button>
+                        </div>
+                    </div>
+                        
+                        
+                        
+                    
+            {% endfor %}
+            
+                
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+
+{% endblock %}

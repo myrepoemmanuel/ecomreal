@@ -1,0 +1,1071 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+    <div style="box-shadow: -4px -4px 5px white,-2px -2px 5px white,4px 4px 5px white,2px 2px 5px white;" class="sticky-cart-icon">
+                
+        <a href="{% url 'cart' %}"><img class="cart-img" style="width: 100%; height: 100%;" src="{% static 'img/carrt.png' %}" alt=""></a>
+        <p class="cart-num"><span>{{cartItems}}</span></p>
+    </div>
+
+    <!-- filters-section... -->
+
+    <div class="filters_show_btn">S</div>
+
+    <div class="filters hide-item">
+
+        <div class="by_color">
+            
+            <div class="filter_heading">
+                <h3 class="filter_tag">Color</h3>
+
+                <div id="filters_close_btn">
+                    &times;
+                </div>
+            </div>
+
+            <div class="color_palette">
+                <div class="scroll">
+                    <div class="color_child" style="background: #232323;"></div>
+                    <div class="color_child" style="background: blue;"></div>
+                    <div class="color_child" style="background: black;"></div>
+                    <div class="color_child" style="background: greenyellow;"></div>
+                    <div class="color_child" style="background: grey;"></div>
+                    <div class="color_child" style="background: red;"></div>
+                    <div class="color_child" style="background: green;"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="by_size">
+            
+            <div><h3 class="filter_tag">Size</h3></div>
+
+            <div class="size_palette">
+
+                <div class="size_child">
+                    <h3>40</h3>
+                    <input type="text" placeholder="size" name="shoe_size" class="hide-item">
+                </div>
+
+                <div class="size_child">
+                    <h3>41</h3>
+                    <input type="text" placeholder="size" name="shoe_size" class="hide-item">
+                </div>
+
+                <div class="size_child">
+                    <h3>42</h3>
+                    <input type="text" placeholder="size" name="shoe_size" class="hide-item">
+                </div>
+
+                <div class="size_child">
+                    <h3>43</h3>
+                    <input type="text" placeholder="size" name="shoe_size" class="hide-item">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="by_price">
+            
+            <div><h3 class="filter_tag">Price</h3></div>
+
+            <div class="price_tray">
+                <div class="min_child">
+                    <input style="width:100%; height:100%;" placeholder="Min" type="text" name="min_price">
+                </div>
+
+                <div class="max_child">
+                    <input style="width:100%; height:100%;" placeholder="Max" type="text" name="max_price">
+                </div>
+
+            </div>
+
+
+        </div>
+        
+    </div>
+
+    
+
+
+<div style="position: relative;" class="search-box">
+<div class="search_tools">
+    <div style="position: relative; width: 100%; display: grid;">
+        <input id="search-box" class="search-box-input" type="text" placeholder="Enter Product Name..."> 
+        <!--   search results div-->
+        <div id="search-results-sec" class="hide-item"></div>
+
+    </div>
+    
+    <div style="width: 100%;">
+        <button id="search-btn" class="success-btn">Search</button>
+    </div>
+    
+    
+        
+</div>
+
+
+
+    
+</div>
+
+<!--   unique search results div-->
+<div id="search-results-page-bg" class="hide-item"></div>
+<div id="search-results-page" class="hide-item">
+    <h1 id="search-results-close" style="position: fixed; right: 18px; top: -15px;color: white; font-weight: 800;cursor: pointer;">&times;</h1>
+</div>
+
+<!-- ........................... -->
+    <div class="wrapper-box-parent">
+        
+        <p class="wrapper-box-label label-1-position">Welcome</p>
+        
+
+        <div id="wrp" class="wrapper-box" style="position: relative; overflow: hidden; background-color:rgba(255, 255, 255, 0.8);">
+
+
+            <div id="most_featured_1" class="store-child-2">
+                <img style="position: absolute; z-index: -100;" src="{% static 'img/dior_s.jpg' %}" alt="">
+
+                <h1 class="main-featured-h1">
+                    15% <span class="main-featured-h1-child">off!!</span> Sale
+                </h1>
+                
+                
+                <a href="" class="store-btn">
+                    Shop Now
+                </a>  
+
+
+            </div>
+
+
+            <div id="most_featured_2" class="store-child-2">
+                <img style="position: absolute; z-index: -100;" src="{% static 'img/nike_air.jpg' %}" alt="">
+
+                <h1 class="main-featured-h1">10% <span class="main-featured-h1-child">off!!!!</span> Sale</h1>
+                
+                <a href="" class="store-btn">Get yours</a>   
+
+            </div>
+
+
+            <div id="most_featured_3" class="store-child-2">
+                <img style="position: absolute; z-index: -100;" src="{% static 'img/jordan.jpg' %}" alt="">
+
+                <h1 class="main-featured-h1">5% <span class="main-featured-h1-child">off!!</span> Sale</h1>
+                
+                <a href="" class="store-btn">Shop Now</a>   
+
+            </div>
+
+            
+
+        </div>
+
+        <!-- script below to set the parent and children height in good place  -->
+        <script>
+            let new_slider_element = document.getElementsByClassName("wrapper-box-label")[0];
+            let new_slider_width = new_slider_element.getBoundingClientRect()['height'];
+            let wrap_Slider_receipient = document.getElementsByClassName('wrapper-box');
+            for(let i=0;i < wrap_Slider_receipient.length; i++){
+                wrap_Slider_receipient[i].style.minHeight = new_slider_width + 'px';
+            }
+
+            
+        </script>
+    </div>
+
+<!--    ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+
+    
+    <div class="wrapper-box-1">
+        {% for brand in Common_brands %}
+        <a href="{% url 'site-brands' brand.name %}" class="store-child-1 page-tags">
+
+            <div class="image-holder">
+                <img style="width:100%; height:100%; object-fit: cover;" src="{{brand.imageURL}}" alt="">
+            </div>
+            
+            <h3>{{brand.name | upper }}</h3>
+
+        </a>
+        {% endfor %}
+    </div>
+
+<!--    ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+    <div class="wrapper-box-parent">
+        
+        <p  class="wrapper-box-label label-2-position">Dior</p>
+        
+        
+
+        <div id="wrapper-box-2" class="wrapper-box-2">
+            
+            {% for product in products %}
+            <div class="card">
+                <!-- the section below is hidden and used to create slider effect for product details -->
+
+                <div class="other-images-1" style="position: absolute;display: none;">
+                    
+                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
+                    <p>{{ product.price }}</p>
+                    <p>{{ product.description }}</p>
+                </div>
+
+                <div style="position: relative; width:100%; height:200px;">
+                    <img id="img1" class="mySlides1" src="{{product.imageURL}}" alt="">
+                </div>
+                
+                <!-- the section below is hidden and used to create slider effect for product images -->
+
+                <div class="other-images" style="position: absolute;display: none;">
+                    
+                    <img id="img-1" class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                    <img id="img2" class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
+                    <img id="img3" class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
+                    <img id="img4" class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
+                    
+                </div>
+
+                <!-- end of hidden product images -->
+                
+                <p id="pname" class="pname">{{ product.name|capfirst }}</p>
+                
+                
+                <p class="price">Ksh {{ product.price|floatformat:2 }}</p>
+                
+                <div>
+                    <button data-product={{product.id}} data-action='add' class="btn update-cart hide">Add To Cart</button>
+                </div>
+                
+                
+                <!-- more hidden product details -->
+
+                <!-- prod-desc at index 6 -->
+                <div style="position: absolute;display: none;">
+                    <h4 id="product-description">{{ product.description }}</h4>
+                </div>
+
+            </div>
+            
+            {% endfor %}
+        </div>
+        <!-- script below to set the parent and children height in good place  -->
+        <script>
+            let new_Fwrap_element = document.getElementsByClassName("wrapper-box-label")[0]
+            let new_Fwrap_width = new_Fwrap_element.getBoundingClientRect()['height'];
+            let wrap_Freceipient = document.getElementsByClassName('wrapper-box-2')
+            console.log(wrap_Freceipient)
+            for(let i=0;i < wrap_Freceipient.length; i++){
+                wrap_Freceipient[i].style.minHeight = new_Fwrap_width + 'px';
+            }
+        </script>
+    </div>
+    
+    <div class="wrapper-box-parent">
+        
+        <p  class="wrapper-box-label label-2-position">Nike</p>
+        
+        
+
+        <div id="wrapper-box-2" class="wrapper-box-2">
+            
+            {% for product in products %}
+            <div class="card">
+                <!-- the section below is hidden and used to create slider effect for product details -->
+
+                <div class="other-images-1" style="position: absolute;display: none;">
+                    
+                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
+                    <img class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
+                    <p>Ksh {{ product.price }}</p>
+                    <p>{{ product.description }}</p>
+                </div>
+
+                <div style="position: relative; width:100%; height:200px;">
+                    <img id="img1" class="mySlides1" src="{{product.imageURL}}" alt="">
+                </div>
+                <!-- the section below is hidden and used to create slider effect for product images -->
+
+                <div class="other-images" style="position: absolute;display: none;">
+                    
+                    <img id="img-1" class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                    <img id="img2" class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
+                    <img id="img3" class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
+                    <img id="img4" class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
+                    
+                </div>
+
+                <!-- end of hidden product images -->
+                
+                <p id="pname" class="pname">{{ product.name|capfirst }}</p>
+                
+                
+                <p class="price">Ksh {{ product.price|floatformat:2 }}</p>
+                
+                <div>
+                    <button data-product={{product.id}} data-action='add' class="btn update-cart hide">Add To Cart</button>
+                </div>
+                
+                
+                <!-- more hidden product details -->
+
+                <!-- prod-desc at index 6 -->
+                <div style="position: absolute;display: none;">
+                    <h4 id="product-description">{{ product.description }}</h4>
+                </div>
+
+            </div>
+            
+            {% endfor %}
+        </div>
+        <!-- script below to set the parent and children height in good place  -->
+        <script>
+            let new_wrap_element = document.getElementsByClassName("wrapper-box-label")[0]
+            let new_wrap_width = new_wrap_element.getBoundingClientRect()['height'];
+            let wrap_receipient = document.getElementsByClassName('wrapper-box-2')
+            console.log(wrap_receipient)
+            for(let i=0;i < wrap_receipient.length; i++){
+                wrap_receipient[i].style.minHeight = new_wrap_width + 'px';
+            }
+        </script>
+    </div>
+
+
+
+<!--     product details background-->
+    <div class="full-prod-details-bg" id="full-prod-details-bg"></div>
+    
+
+    <!--     product details foreground-->
+    <div class="full-prod-details" id="full-prod-details">
+            <div class="full-prod-details-close_btn">
+            <h1 id="card-close-btn">&times;</h1>
+            </div>
+            
+            
+            <div class="product-details-parent">
+
+                
+                <div class="child-1">
+                    
+                    <div class="image-track">
+                        
+                        <div class="image-slide-holder">
+                            
+                            <div id="prod-image-1" class="image-slide current-slide">
+                            
+                            
+                            </div>
+
+                            
+                            
+                        </div>
+                        
+                        
+                        
+                    
+                        <div id="slide-nav" class="slide-nav">
+                            
+                            
+                            <div style="background: rgb(73, 90, 73);width: 80%; height: 80%;" id="pic1">
+                                
+                                <img class="prod-image-btn prod-image-btn-1" src="" alt="">
+                                
+                            </div>
+                            
+                            <div style="background: rgb(73, 90, 73);width: 80%; height: 80%;" id="pic2">
+                                
+                                <img class="prod-image-btn prod-image-btn-2" src="" alt="">
+                                
+                            </div>
+                            
+                            <div style="background: rgb(73, 90, 73);width: 80%; height: 80%;" id="pic3">
+                                
+                                <img class="prod-image-btn prod-image-btn-3" src="" alt="">
+                                
+                            </div>
+                            
+                            <div style="background: rgb(73, 90, 73);width: 80%; height: 80%;" id="pic4">
+                                
+                                <img class="prod-image-btn prod-image-btn-4" src="" alt="">
+                                
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="child-2">
+                    <div>
+                        <h1 class="prod-description" id="product-name">Product Name</h1>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-block:15px;" id="product-price"></h4>
+                    </div>
+                    
+                    
+<!--                   product rating-->
+                    <div style="position: relative;height:30px; width:40%;">
+                        <div class="progress-bar" style="position:absolute; right: 0; width:50%; height:100%; background:#232323;;"></div>
+
+                        <img style="position: absolute; left: 0; width:100%;height: 93.5%;object-fit: contain; z-index: 5;" src="{% static 'img/star.png' %}">
+                        <img style="width:100%;height: 100%; object-fit:contain;" src="{% static 'img/stars.png' %}">
+
+                        
+                    </div>
+                    
+                    <div>
+                        <p id="product-text" class="product-text"></p>
+                    </div>
+                    
+                    
+                    <div class="price-cart">
+                        <button id="price-cart-add-btn" data-product="" data-action='add' class="price-cart-btn update-cart">Add To Cart</button>
+                        
+                        <button class="price-cart-btn update-cart" style="box-shadow: none;background: yellowgreen;">Buy Now</button>
+                        
+                    </div>
+                    
+                    
+                    
+                    
+                </div>
+                
+            </div>
+            
+                    
+    </div>
+
+    
+
+
+    <script>
+
+        // filter section functionality...............
+
+        let filter_parent = document.getElementsByClassName("filters")[0];
+        let filter_btn = document.getElementsByClassName("filters_show_btn")[0];
+        let filter_close_btn = document.getElementById("filters_close_btn");
+
+        filter_btn.addEventListener("mouseover", function(){
+            this.classList.add("hide-item");
+            filter_parent.classList.remove("hide-item");
+            function set_width(){
+                filter_parent.style.width = "200px";
+                filter_parent.style.height = "282px";
+            };
+            setTimeout(()=> {set_width()}, 60);
+        })
+
+        filter_close_btn.addEventListener("click", function() {
+            console.log("closes")
+            filter_parent.style.width = "0";
+            filter_parent.style.height = "0";
+
+            function hide_filter(){
+                filter_parent.classList.add("hide-item");
+                filter_btn.classList.remove("hide-item");
+            };
+            setTimeout(()=> {hide_filter()}, 1250);
+        })
+
+        // filter sections by size functionality..................
+
+        let filter_size_parent = document.getElementsByClassName("size_child")
+        for(let i=0; i < filter_size_parent.length; i++){
+            let size_no = filter_size_parent[i].children[0]
+            let size_input = filter_size_parent[i].children[1]
+
+            filter_size_parent[i].addEventListener("mouseover", function(){
+                //create your hover alt text here and create a mouseout event....
+            })
+
+            filter_size_parent[i].addEventListener("click", function(){
+                size_no.classList.add("hide-item");
+                size_input.classList.remove("hide-item");
+
+                
+
+                size_input.addEventListener("keyup", function(){
+                    //check for enter key being pressed.....
+
+                    document.addEventListener("keyup", function(event){
+                        if (event.keyCode === 13 ) {
+                            let new_size = size_input.value;
+
+                            size_no.innerHTML = new_size;
+                            size_input.classList.add("hide-item");
+                            size_no.classList.remove("hide-item");
+                        }
+                    })
+                })
+
+                
+            })
+        }
+        
+
+        // top page featured products slide functionality..............................
+
+        // let src_text = "{"+"% "+"static "+"'img/"+variable+"'"+" %"+"}";
+
+        let most_featured_1 = document.getElementById("most_featured_1");
+        let most_featured_2 = document.getElementById("most_featured_2");
+        let most_featured_3 = document.getElementById("most_featured_3");
+
+        let most_featured_parent_width = document.getElementById("wrp").clientWidth;
+        console.log(most_featured_parent_width);
+        most_featured_1.style.left = '0';
+        most_featured_2.style.left = "-" + most_featured_parent_width + "px";
+        most_featured_3.style.left = "-" + most_featured_parent_width + "px";
+
+        function move_to_current_pos(element_to_move){
+            element_to_move.style.zIndex = '5';
+            element_to_move.style.transition = '1.5s';
+            element_to_move.style.left = '0';
+
+            
+            // console.log(prev_pos)
+            // element_to_move.previousElementSibling()
+        }
+        
+        function move_to_orig_pos(received){
+            received.style.zIndex = '5';
+            received.style.transition = '1.5s';
+            received.style.left = "-" + most_featured_parent_width + 'px';
+        }
+
+        function move_to_next_pos(received){
+            received.style.zIndex = '5';
+            received.style.transition = '1.5s';
+            received.style.left = most_featured_parent_width + 'px';
+        }
+
+
+
+
+        let small_array = [most_featured_1,most_featured_2, most_featured_3];
+        function move_pics(){
+            setTimeout(()=> {move_to_current_pos(small_array[0])}, 3000);
+            setTimeout(()=> {move_to_current_pos(small_array[1])}, 9000);
+            setTimeout(()=> {move_to_current_pos(small_array[2])}, 15000);
+
+            setTimeout(()=> {move_to_next_pos(small_array[2])}, 21000);
+            setTimeout(()=> {move_to_next_pos(small_array[1])}, 27000);
+            // setTimeout(()=> {move_to_next_pos(small_array[0])}, 33000);
+
+            // setTimeout(()=> {move_to_current_pos(small_array[0])}, 39000);
+            setTimeout(()=> {move_to_current_pos(small_array[1])}, 33000);
+            setTimeout(()=> {move_to_current_pos(small_array[2])}, 39000);
+
+            setTimeout(()=> {move_to_orig_pos(small_array[2])}, 45000);
+            setTimeout(()=> {move_to_orig_pos(small_array[1])}, 51000);
+            // setTimeout(()=> {move_to_orig_pos(small_array[0])}, 69000);
+        }
+        move_pics()
+        setInterval("move_pics()", 57000);
+        
+
+
+        let products_data = JSON.parse('{{each_product_db|escapejs}}')
+        console.log(products_data);
+
+        let product_names = document.getElementsByClassName('pname');
+        for(let pn=0; pn<product_names.length;pn++){
+            product_names[pn].addEventListener('click',function(){
+                overlaycard(this); 
+                getImages(this);
+            })
+        }
+
+        function overlaycard(product_info){
+                console.log(product_info)
+                // document.getElementById("product-name").innerHTML = product_info.innerHTML;
+                
+                document.getElementById('full-prod-details').style.width = "100%"; 
+                
+                document.getElementById('full-prod-details-bg').style.width = "100%"; 
+        };
+            
+        document.getElementById("card-close-btn").addEventListener('click', function(){
+            document.getElementById("product-name").innerHTML = "";
+            document.getElementById('full-prod-details').style.width = "0";
+            document.getElementById('full-prod-details-bg').style.width = "0";
+        })
+
+
+
+
+
+
+
+
+        // product_card clicking function........................
+        let prod_card = document.getElementsByClassName("card")
+
+        for(let i=0; i < prod_card.length;i++){
+            prod_card[i].addEventListener("click", function(){
+                let p_tag = prod_card[i].children[3];
+                overlaycard(p_tag);
+                getImages(p_tag);
+            })
+        }
+
+        let search_box = document.getElementById("search-box")
+        let search_btn = document.getElementById("search-btn")
+        let search_data = JSON.parse('{{search_db|escapejs}}')
+        let search_results = document.getElementById("search-results-sec")
+        let search_results_page = document.getElementById("search-results-page")
+        let search_results_page_bg = document.getElementById("search-results-page-bg")
+        let clean_prod_categories = JSON.parse('{{clean_prod_category|escapejs}}');
+        console.log(clean_prod_categories,"jjjjjjjjjj")
+        
+
+        function getImages(prodname){
+            let Imagelist = document.getElementsByClassName("other-images")
+
+
+
+
+            //get the parent element of clicked product
+            
+            let clicked_parentElement = prodname.parentElement;
+            
+            //get all the images child of the parent element
+            
+            let other_images = clicked_parentElement.children[2];
+            
+            //get the children of other images
+            
+            let image_array = other_images.children
+
+
+            // setting clicked product name,description and price too.......
+            let clicked_product_name = document.getElementById("product-name");
+            let desc_box = document.getElementById("product-text");
+            let clicked_product_price = document.getElementById("product-price");
+
+            let clicked_product_description = clicked_parentElement.children[6].children[0];
+            clicked_product_name.innerHTML = prodname.innerHTML;
+            desc_box.innerHTML = clicked_product_description.innerHTML
+            clicked_product_price.innerHTML = clicked_parentElement.children[4].innerHTML;
+            
+            // adding cart functionality to cart btn on details page....
+            let clicked_product_id = clicked_parentElement.children[5].children[0].dataset.product;
+            let price_id = document.getElementById("price-cart-add-btn");
+            price_id.setAttribute("data-product", clicked_product_id);
+
+            console.log(price_id)
+            //setting up main prod details image...
+            
+            let featured_image = document.getElementById("prod-image-1");
+            let featured_image1 = document.getElementById("pic1");
+            let featured_image2 = document.getElementById("pic2");
+            let featured_image3 = document.getElementById("pic3");
+            let featured_image4 = document.getElementById("pic4");
+            // src for product clicked
+            let new_f_image_src = image_array[0].src;
+            let new_f_image_src1 = image_array[1].src;
+            let new_f_image_src2 = image_array[2].src;
+            let new_f_image_src3 = image_array[3].src;
+            // creating images to receive src
+            let featured_image_child = document.createElement('img');
+            let featured_image_child1 = document.createElement('img');
+            let featured_image_child2 = document.createElement('img');
+            let featured_image_child3 = document.createElement('img');
+            let featured_image_child4 = document.createElement('img');
+            // adding classes and attributes
+            featured_image_child.classList.add("prod-image-1");
+            featured_image_child.setAttribute('src', new_f_image_src);
+
+            featured_image_child1.classList.add("prod-image-cover");
+            featured_image_child1.setAttribute('src', new_f_image_src);
+
+            featured_image_child2.classList.add("prod-image-cover");
+            featured_image_child2.setAttribute('src', new_f_image_src1);
+
+            featured_image_child3.classList.add("prod-image-cover");
+            featured_image_child3.setAttribute('src', new_f_image_src2);
+
+            featured_image_child4.classList.add("prod-image-cover");
+            featured_image_child4.setAttribute('src', new_f_image_src3)
+
+            // clearing their content and appending new ones
+            featured_image.innerHTML = "";
+            featured_image.appendChild(featured_image_child);
+
+            featured_image1.innerHTML = "";
+            featured_image1.appendChild(featured_image_child1);
+
+            featured_image2.innerHTML = "";
+            featured_image2.appendChild(featured_image_child2);
+
+            featured_image3.innerHTML = "";
+            featured_image3.appendChild(featured_image_child3);
+
+            featured_image4.innerHTML = "";
+            featured_image4.appendChild(featured_image_child4);
+            //end............
+            
+            
+        
+        }
+
+        //get slider navigation children...product detail
+        
+        let slideButtonschildren = document.getElementById("slide-nav").children;
+        
+        
+        
+        for (let i=0; i < slideButtonschildren.length;i++){
+            slideButtonschildren[i].addEventListener('mouseover', function(){
+                this.style.cursor = 'pointer';
+            })
+            slideButtonschildren[i].addEventListener('click', function(){
+                let main_slide_image = document.getElementById("prod-image-1");
+                main_slide_image.children[0].src = slideButtonschildren[i].children[0].src;
+            })
+
+        }
+
+        let adp_1 = []
+
+        search_box.addEventListener("keyup", check_searchbox)
+        
+        function check_searchbox(){
+
+            search_results.innerHTML = "";
+            if (search_box.value.length > 0){
+                search_results.classList.remove("hide-item")
+            }else{
+                search_results.classList.add("hide-item")
+            }
+
+            
+            let s_array = search_box.value.toLowerCase();
+            // console.log(s_array);
+            
+            let adp = [];
+            for(let i=0; i < search_data.length; i++){
+                if (search_data[i][1].toLowerCase().includes(s_array)){
+                    adp.push(search_data[i]);
+                }               
+
+            }
+            adp_1.push(adp);
+
+            if( adp.length === 0 ){
+                adp.push(["Error","No result found"]);
+            }
+
+            for(let i=0; i < adp.length; i++){
+                
+                if (adp[i][0] === "Error"){
+                    let hlist = "<h2>" + adp[i][1] + "</h2>";
+                    search_results.innerHTML += hlist;
+                }else{
+                    let hlist = "<h3>" + adp[i][1] + "</h3>";
+                    search_results.innerHTML += hlist;
+                }
+            }
+
+            // adding search clicks results...................
+            for(let i=0; i < search_results.children.length; i++){
+
+                search_results.children[i].addEventListener("click", function(){
+                    search_results.classList.add("hide-item")
+                    
+                    let product_info = search_results.children[i].innerHTML;
+                    function search_overlay(product_info){
+                        document.getElementById("product-name").innerHTML = product_info;
+                        
+                        
+                        document.getElementById('full-prod-details').style.width = "100%"; 
+                        
+                        document.getElementById('full-prod-details-bg').style.width = "100%"; 
+                    };
+                
+                    document.getElementById("card-close-btn").addEventListener('click', function(){
+                    document.getElementById("product-name").innerHTML = "";
+                    document.getElementById('full-prod-details').style.width = "0";
+                    document.getElementById('full-prod-details-bg').style.width = "0";
+                })
+
+                // looping through adp since it has both name(adp[x][1]) and product id(adp[x][0]) in the array..
+                    for(let x=0; x < adp.length; x++){
+
+                        /*checking if the name clicked is equal to data in the adp array and saving
+                        the product id(search_prod_id) of the result found..............*/
+                        if (adp[x][1] === search_results.children[i].innerHTML){
+                            let search_prod_id = adp[x][0];
+
+                            /*looping through products_data(using the search_prod_id as basis) to get all required details for the 
+                            clicked product name*/
+                            for(let y=0; y < products_data.length; y++){
+                                if (products_data[y]["id"] === search_prod_id){
+                                    console.log(products_data[y])//found product details
+                                    console.log(products_data[y]['name'])
+                                    searched_product = products_data[y]['name'];
+                                    
+                                    let wrapper_box_parent = document.getElementsByClassName('wrapper-box-parent');
+                                    
+                                    for (let c=0; c<clean_prod_categories.length;c++){
+                                        // check if searched product is same as one in db and get category
+                                        if(searched_product === clean_prod_categories[c]['name']){
+                                            searched_product_cat = clean_prod_categories[c]['category_id'];
+                                            
+                                            for (let i=0; i<wrapper_box_parent.length;i++){
+                                                let wrapper_child_label = wrapper_box_parent[i].children[0].textContent.toLowerCase();
+
+                                                if( wrapper_child_label === searched_product_cat.toLowerCase() ){
+                                                    
+                                                    let wrapper_child = wrapper_box_parent[i].children[1].children;
+                                                    // get the product and append it
+                                                    for (let p=0; p<wrapper_child.length;p++){
+                                                        console.log(wrapper_child[p].children[3])
+                                                        let paste_card = wrapper_child[p].children[3].textContent.toLowerCase();
+                                                        if (searched_product.toLowerCase() === paste_card){
+                                                            console.log("www",wrapper_child[p].children[3].parentElement);
+                                                            parent_of_search = wrapper_child[p].children[3].parentElement;
+                                                            let prod_detail_img = document.getElementById('prod-image-1');
+                                                            let prod_detail_img1 = document.getElementById('pic1');
+                                                            let prod_detail_img2= document.getElementById('pic2');
+                                                            let prod_detail_img3 = document.getElementById('pic3');
+                                                            let prod_detail_img4 = document.getElementById('pic4');
+                                                            let prod_detail_price = document.getElementById('product-price');
+                                                            let prod_detail_description = document.getElementById('product-text');
+
+                                                            prod_detail_img.innerHTML = "";
+                                                            prod_detail_img1.innerHTML = "";
+                                                            prod_detail_img2.innerHTML = "";
+                                                            prod_detail_img3.innerHTML = "";
+                                                            prod_detail_img4.innerHTML = "";
+                                                            prod_detail_price.innerHTML = "";
+                                                            prod_detail_description.innerHTML = "";
+
+                                                            prod_detail_img.appendChild(parent_of_search.children[0].children[0]);
+                                                            prod_detail_img1.appendChild(parent_of_search.children[0].children[0]);
+                                                            prod_detail_img2.appendChild(parent_of_search.children[0].children[0]);
+                                                            prod_detail_img3.appendChild(parent_of_search.children[0].children[0]);
+                                                            prod_detail_img4.appendChild(parent_of_search.children[0].children[0]);
+                                                            prod_detail_price.appendChild(parent_of_search.children[0].children[0]);
+                                                            prod_detail_description.appendChild(parent_of_search.children[0].children[0]);
+                                                            
+                                                            console.log(prod_detail_img, "nnn",parent_of_search.children[0])
+                                                            
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                    
+
+
+    
+                                }
+                            }
+                            break;
+                        }
+                        
+                    }
+                search_overlay(product_info);
+
+
+
+                    
+                })
+            }
+            
+            console.log(search_results)
+            console.log(adp)
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        // adding functionality to the search btn
+        search_btn.addEventListener("click", function(){
+
+            // opening animation.....
+            document.getElementById('search-results-page').style.width = "80%"; 
+            document.getElementById('search-results-page-bg').style.width = "100%"; 
+            
+
+            // getting length of search_box to avoid searching for nothing
+            let search_box_length = search_box.value.length;
+
+            if (search_box_length > 0){
+                // showing the results page with various searches
+                search_results.classList.add("hide-item");
+                search_results_page.classList.remove("hide-item");
+                search_results_page_bg.classList.remove("hide-item");
+                search_results_page.style.display = "grid";
+
+                
+                // looping through search_results to find in order to display it in user friendly......
+                let search_results_length = search_results.children.length;
+                for(let i=0; i < search_results_length;i++){
+                    console.log(search_results.children[i])// zebruska
+                }
+                let all_search_prod = find_product();
+                console.log(all_search_prod, "eeeeeeeee");
+                
+                for(let a=0; a< all_search_prod.length;a++){
+                    let all_cards_elem = all_search_prod[a].children;
+                    let card_template = 
+                    `
+                <!-- the section below is hidden and used to create slider effect for product details -->
+
+                ${all_cards_elem[0].outerHTML}
+                
+                ${all_cards_elem[1].outerHTML}
+                
+                <!-- the section below is hidden and used to create slider effect for product images -->
+
+                ${all_cards_elem[2].outerHTML}
+
+                <!-- end of hidden product images -->
+                
+                ${all_cards_elem[3].outerHTML}
+                
+                ${all_cards_elem[4].outerHTML}
+                
+                ${all_cards_elem[5].outerHTML}
+                
+                
+                
+                <!-- more hidden product details -->
+
+                <!-- prod-desc at index 6 -->
+                ${all_cards_elem[6].outerHTML}
+
+            `;
+                    let try_card = document.createElement('div');
+                    try_card.classList.add('card')
+                    try_card.innerHTML = card_template;
+                    search_results_page.appendChild(try_card);
+                }
+                for(let i=0; i < search_results_page.children.length;i++){
+                    search_results_page.children[i].addEventListener("click", function(){
+                        let p_tag = search_results_page.children[i].children[3];
+                        overlaycard(p_tag);
+                        getImages(p_tag);
+                    })
+                }
+
+
+                // close button functionality........................              
+        
+
+                document.getElementById("search-results-close").addEventListener("mouseover", function(){
+                    this.style.color = "red";
+                    this.addEventListener("click", function(){
+                        document.getElementById('search-results-page').style.width = "0";
+                        // document.getElementById('search-results-page').style.left = "0";
+                        document.getElementById('search-results-page-bg').style.width = "0";
+                        
+                    })
+                })
+
+                
+            }
+            
+            
+        })
+        
+        
+        function find_product(sth){
+            let all_cards = [];
+            for(let i=0; i < search_results.children.length; i++){
+                for(let x=0; x < adp_1[0].length; x++){
+                    
+                    /*checking if the name clicked is equal to data in the adp_1 array and saving
+                    the product id(search_prod_id) of the result found..............*/
+                    if (adp_1[0][x][1] === search_results.children[i].innerHTML){
+                        let search_prod_id = adp_1[0][x][0];
+                        
+                        /*looping through products_data(using the search_prod_id as basis) to get all required details for the 
+                        clicked product name*/
+                        for(let y=0; y < products_data.length; y++){
+                            if (products_data[y]["id"] === search_prod_id){
+                                console.log(products_data[y])//found product details
+                                console.log(products_data[y]['name'])
+                                searched_product = products_data[y]['name'];
+                                
+                                let wrapper_box_parent = document.getElementsByClassName('wrapper-box-parent');
+                                
+                                for (let c=0; c<clean_prod_categories.length;c++){
+                                    // check if searched product is same as one in db and get category
+                                    if(searched_product === clean_prod_categories[c]['name']){
+                                        searched_product_cat = clean_prod_categories[c]['category_id'];
+                                        
+                                        for (let i=0; i<wrapper_box_parent.length;i++){
+                                            let wrapper_child_label = wrapper_box_parent[i].children[0].textContent.toLowerCase();
+
+                                            if( wrapper_child_label === searched_product_cat.toLowerCase() ){
+                                                
+                                                let wrapper_child = wrapper_box_parent[i].children[1].children;
+                                                // get the product and append it
+                                                for (let p=0; p<wrapper_child.length;p++){
+                                                    console.log(wrapper_child[p].children[3])
+                                                    let paste_card = wrapper_child[p].children[3].textContent.toLowerCase();
+                                                    if (searched_product.toLowerCase() === paste_card){
+                                                        console.log("www",wrapper_child[p].children[3].parentElement);
+                                                        parent_of_search = wrapper_child[p].children[3].parentElement;
+                                                        all_cards.push(parent_of_search)
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            
+            return all_cards;
+
+        }
+
+        
+            
+            
+            
+
+
+    </script>
+
+
+{% endblock %}

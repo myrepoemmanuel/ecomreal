@@ -1,0 +1,93 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="pg-cont contact-background" style="position: absolute; top: 0;left: 0; width: 100%; height: 100%; z-index: -1;">
+    <img src="{% static 'img/contact.jpg' %}" style="width: 100%; height: 100%; object-fit: cover; opacity: .3;" alt="">
+</div>
+
+<div class="contact-container">
+        
+        
+        <form id="cont-form">
+          <div class="contact-welcome">
+            <h1 style="margin: 0;">CONTACT</h1>
+
+            <p style="font-style: italic;">
+              At TheMarket we really consider what our customers desire and aim to solve the issues as quick
+              as possible. kindly fill the formbelow an agent will contact you shortly.
+            </p>
+          </div>
+          <div class="contact-personal">
+            <div class="input-boxes">
+              <label for="fname">
+                First Name
+                <span style="color: red;">*</span>
+              </label>
+              <input type="text" id="fname" name="firstname">
+            </div>
+
+            <div class="input-boxes">
+              <label for="lname">
+                Last Name
+                <span style="color: red;">*</span>
+              </label>
+              <input type="text" id="lname" name="lastname">
+            </div>
+
+            <div class="input-boxes">
+              <label for="email">
+                Email Address
+                <span style="color: red;">*</span>
+              </label>
+              <input type="text" id="email" name="email">
+            </div>
+
+            <div class="input-boxes">
+              <label for="phone_number">
+                Phone Number
+              </label>
+              <input type="text" id="phone_number" name="phoneNumber">
+            </div>
+          </div>
+
+            <div class="input-boxes">
+              <label for="country">
+                Country
+                <span style="color: red;">*</span>
+              </label>
+              <select id="country" name="country">
+                <option value="Kenya">Kenya</option>
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="usa">USA</option>
+              </select>
+            </div>
+
+            <div class="input-boxes">
+              <label for="subject">Subject</label>
+              <textarea id="subject" name="subject" placeholder="Help understand your problem better..." style="height:200px"></textarea>
+            </div>
+            <input type="submit" value="Submit">
+
+        </form>
+        <div class="other-details">
+          <div class="cont-info">
+            <p>
+              <span style="font-weight: 700;">Email:</span> 
+              <span style="color: rgb(183, 170, 170);">info@themarket.com</span>
+            </p>
+            <p>
+              <span style="font-weight: 700;">Phone:</span> 
+              <span style="color: rgb(183, 170, 170);">+2547123456789</span>
+            </p>
+            <p>
+              <span style="font-weight: 700;">Office:</span> 
+              <span style="color: rgb(183, 170, 170);">Nairobi Central Business District, Afya House</span>
+            </p>
+          </div>
+        </div>
+</div>
+{% endblock %}

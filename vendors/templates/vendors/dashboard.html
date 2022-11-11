@@ -1,0 +1,143 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="vendor-dashboard">
+
+    <h1 style="display: inline; margin: 0; padding-left: 0.5em; color: #b8c1c9; align-self: center;">Welcome to your dashboard, {{ user.user_name | capfirst }}</h1>
+    {% if error_v %}
+        <h2 style="display: inline; margin: 0; padding-left: 0.5em; color: whitesmoke; align-self: center;">
+            Please register as a vendor at your <a style="color: rgb(59, 82, 84); text-decoration: none; background: #b8c1c9; padding: 5px 13px; border-radius: 3px;" href="{% url 'users:site-profile' %}">profile</a> page to access this feature
+        </h2>
+    {% else %}
+        <div class="analytics-section">
+            <h1 style="margin: 0; grid-column: span 3;">Analytics</h1>
+            <div class="tracking"></div>
+            <div class="tracking"></div>
+            <div class="tracking"></div>
+        </div>
+
+        <div class="vendor-products">
+
+            <div class="vendor-summary">
+                <div class="summary-filters" style="display: grid; grid-template-columns: repeat(6, 1fr); border-bottom: 3px rgb(151, 148, 240) solid; padding: 0.3em;">
+
+                    <span>
+                        <input type="checkbox" name="complete" id="">
+                        <label for="complete">Complete</label>
+                    </span>
+
+                    <span>
+                        <input type="checkbox" name="pending" id="">
+                        <label for="pending">Pending</label>
+                    </span>
+
+                    <span>
+                        <input type="checkbox" name="today" id="">
+                        <label for="today">Today</label>
+                    </span>
+
+                    <span>
+                        <input type="checkbox" name="last_week" id="">
+                        <label for="last_week">Last week</label>
+                    </span>
+
+                    <span>
+                        <input type="checkbox" name="custom" id="">
+                        <label for="custom">Custom</label>
+                    </span>
+
+                    <span>
+                        <input type="checkbox" name="date" id="">
+                        <label for="date">date</label>
+                    </span>
+                </div>
+
+                <table>
+                    <th>ORDER NO.</th>
+                    <th>PRODUCT</th>
+                    <th>QUANTITY</th>
+                    <th>STATUS</th>
+                    <th>LOCATION</th>
+                    <th>PHONE</th>
+                    <th>START DATE</th>
+                    <th> EST DUE DELIVERY</th>
+                    {% for order in all_orders %}
+                    <tr>
+                        <td>{{order.order_id}}</td>
+                        <td>{{order.product_name}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td style="display: grid; place-items: center; height: 72px;">
+                            <div class="status">
+                                <div class="status_icon {{order.status}}"></div> 
+                                <span>{{order.status | capfirst}}</span>
+                            </div>
+                        </td>
+                        <td>{{order.customer_address}}</td>
+                        <td>{{order.customer_phone}}</td>
+                        <td>{{order.customer_order_date}}</td>
+                        <td>48hrs Maximum</td>
+                    </tr>
+                    {% endfor %}
+                    
+
+                
+                </table>
+            </div>
+            
+            <div class="additional-functions">
+                <h3 style="grid-column: span 2; margin: 0;">Quick Tools</h3>
+            
+                <a id="my_shop" href="{% url 'vendors:my_shop' vendor_u %}" style="background-color: rgb(14, 5, 28);" class="success-btn">My Shop</a>
+                
+                <a href="{% url 'users:site-profile' %}" style="background-color: rgb(14, 5, 28);" class="success-btn">Profile</a>
+                <a href="{% url 'vendors:add_product' %}" style="background-color: rgb(14, 5, 28);" class="success-btn">Register Functions</a>
+                <a href="{% url 'vendors:add_product' %}" style="background-color: rgb(14, 5, 28);" class="success-btn">Add Widgets</a>
+                <a href="{% url 'vendors:add_product' %}" class="success-btn">Add Product</a>
+                <a href="{% url 'vendors:add_product' %}" style="background-color: red;" class="success-btn">Empty Products</a>
+
+            </div>
+
+            <div class="product-list">
+                <h1 style="margin: 0;">Your Product List</h1>
+                {% for product in unique_products %}
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); place-items: center; border-bottom: 1px whitesmoke solid; padding: 0.5em;">
+
+                    <span style="display: inline-block; width: 10vh; height: 10vh;">
+                        <img src="{{product.imageURL}}" style="width: 100%; height: 100%; object-fit: contain;" alt="">
+                    </span>
+                    <span>
+                        {{product.name}}
+                    </span>
+                    <span>
+                        stock(10)
+                    </span>
+                    <span>
+                        ksh. {{product.price}}
+                    </span>
+                    <span>
+                        22-04-2022
+                    </span>
+                    <span>
+                        <a style="color: #d76767;" href="#">remove</a>
+                    </span>
+                    <span>
+                        <a style="color: white;" href="#">edit</a>
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+        </div>
+    {% endif %}
+    
+
+    
+
+</div>
+
+
+{% endblock %}
