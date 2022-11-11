@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'ek0@9u(zeu^+%*-zedg9%m3mdoec3!&y9mu_7u+-mi*)c%42'
+SECRET_KEY = 'ek0@9u(zeu^+%*-zedg9%m3mdoec3!&y9mu_7u+-mi*)c%42'
 
-SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -154,9 +154,9 @@ STATIC_URL = '/static/'
 # DATABASES['default'].update(prod_db)
 
 
-MEDIA_URL = '/img/'
+MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'store/static/img')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'store/static/media')
 
 LOGIN_REDIRECT_URL = 'store'
 
@@ -168,11 +168,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 ORGS_SLUGFIELD = 'django_extensions.db.fields.AutoSlugField'
 
 # aws settings
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_ACCESS_KEY_ID = 'AKIAYIDM7EQZ6AO2K5ZG'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'myecoms'
 
-AWS_DEFAULT_ACL = 'public-read'
+AWS_DEFAULT_ACL = None
 
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
