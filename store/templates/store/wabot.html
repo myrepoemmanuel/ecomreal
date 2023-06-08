@@ -1,0 +1,292 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Wabot</title>
+    {% endif %}
+    
+    <meta name="description" content="Shop the best trends">
+    <meta name="author" content="the_*developers">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+            let user = '{{request.user}}';
+            
+        
+            function getToken(name){
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== ''){
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++){
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0 , name.length + 1) === (name + '=')){
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+            }
+            const csrftoken = getToken('csrftoken')
+
+            function getCookie(name){
+                // Split cookie string and get all individual name=value pairs in an array
+                var cookieArr = document.cookie.split(";");
+
+                // loop through the array elements
+                for(let i=0; i < cookieArr.length; i++){
+                    let cookiePair = cookieArr[i].split("=");
+
+                    /*removing whitespace at the begining of cookie name and 
+                    compare it with given string*/
+                    if (name == cookiePair[0].trim()){
+                        //decode cookie value and return
+                        return decodeURIComponent(cookiePair[1]);
+                    }
+
+                }
+
+                //return null if not found
+                return null;
+            }
+            var cart = JSON.parse(getCookie('cart'));
+            var cart_no = JSON.parse(getCookie('cartno'))
+
+            // set the cookie if it's not there
+
+            if (cart == undefined){
+                cart = {}
+                console.log('cart created!', cart);
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
+            }
+            if (cart_no == undefined){
+                cart_no = {}
+                console.log('cart_no created!', cart_no);
+                document.cookie = 'cartno=' + JSON.stringify(cart_no) + ";domain=;path=/";
+            }
+            console.log("cart:",cart);
+        
+    </script>  
+
+    <style>
+        .wabot_header{
+            display: grid;
+            width: 100vw;
+            grid-template-columns: 15vw 1fr;
+            height: 5.5rem;
+        }
+
+        .wabot_header .logo{
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+            font-size: 35px;
+            font-weight: 800;
+            
+        }
+
+        .wabot_header .logo span{
+            font-family: "Montserrat";
+        }
+        .main_nav{
+            margin: 0;
+            position: relative;
+            display: grid;
+            list-style: none;
+            grid-template-columns: repeat(4, 10vw);
+            /* border: 1px white solid; */
+            height: 100%;
+            align-content: center;
+            justify-content: right;
+            width: 100%;
+            /* background-color: rgba(0, 0, 0, 0.349); */
+
+        }
+        .main_nav li{
+            font-size: 1.5rem;
+            color: white;
+            display: grid;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .main_nav a{
+            text-decoration: none;
+            font-family: cursive;
+            color: white;
+        }
+
+        section a{
+            width: max-content; 
+            text-decoration: none; 
+            color: white; 
+            background: purple; 
+            padding: 10px 14px; 
+            border-radius: 9px;
+        }
+
+        .sec-1{
+            position: relative;
+            display: grid;
+            width: 100%;
+            height: 50vh;
+            place-items: center;
+            background: rgba(245, 245, 245, 0.389);
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .sec-2{
+            position: relative;
+            display: grid;
+            width: 100%;
+            height: 60vh;
+            /* background: rgba(245, 245, 245, 0.389); */
+            grid-template-columns: repeat(3, 18vw);
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sec-2 h3{
+            margin: 10px;
+            font-size: 1.6rem;
+        }
+
+        .sec-2 p{
+            text-align: center;
+        }
+
+        .sec-2 .service_card{
+            position: relative;
+            display: grid;
+            background: #f5f5f5cc;
+            height: max-content;
+            color: black;
+            border-radius: 8px;
+            justify-items: center;
+            padding: 5px;
+            grid-template-rows: 12rem max-content max-content max-content;
+            box-shadow: inset 5px -5px 40px #554a4a, 5px 5px 20px 10px #00000073;
+
+        }
+
+
+
+        .sec-2 .service_card img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sec-2 .service_card a{
+            padding: 13px 30px;
+        }
+
+
+    </style>
+
+    </head>
+    <body style="font-family: cursive; background-image: linear-gradient(32deg,rgba(255, 166, 0, 0.748), rgba(255, 0, 0, 0.764),rgba(0, 128, 0, 0.753));">
+    
+    <header class="wabot_header">
+        <div class="logo">
+            <span>Smart<span style="color: purple;">Credo</span></span>
+        </div>
+        <ul class="main_nav">
+            <li><a href="">Home</a></li>
+            <li><a href="">Services</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact</a></li>
+        </ul>
+    </header>
+
+    
+        
+        {% if messages %}
+        <div class="success-msg">
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        
+        
+        <section class="sec-1">
+
+            <div style="display: grid; gap: 10px; width: 35vw;">
+                <h1 style="margin: 0;">
+                    <span style="font-size: 35px; margin: 0;">Smart<span style="color: purple;">Credo</span></span>
+                </h1>
+                <h3 style="margin: 0px;">The Best of the best</h3>
+                <p style="margin: 0;">
+                    Get the best mobile Services at smartcredit today. Register and get best offers on
+                    our products. Discounted offers for new users
+                </p>
+                <a href="#">Learn More</a>
+            </div>
+            <div style="position: absolute; z-index: -1; width: 100%; height: 100%;">
+                <img style="width: 100%; height: 100%; object-fit: cover; filter: brightness(40%);" src="{% static 'img/neighbourhood.png' %}" alt="">
+            </div>
+            
+
+        </section>
+
+        <section style="background-image: linear-gradient(rgba(245, 245, 245, 0.315), rgba(128, 128, 128, 0.145));" class="sec-2">
+
+            <div class="service_card">
+                <img src="{% static 'img/Contactus.jpg' %}" alt="">
+                <h3>Buy Airtime</h3>
+                <p>Get the best service Get the best service Get the best service Get the best service</p>
+                <a style="background: #00000094;" href="">Learn More</a>
+            </div>
+            
+            <div class="service_card">
+                <img src="{% static 'img/dash.png' %}" alt="">
+                <h3>Bulk Cash</h3>
+                <p>Get the best service Get the best service Get the best service Get the best service</p>
+                <a style="background: darkolivegreen;" href="">Learn More</a>
+            </div>
+
+            <div class="service_card">
+                <img src="{% static 'img/jordan.jpg' %}" alt="">
+                <h3>Buy Data</h3>
+                <p>Get the best service Get the best service Get the best service Get the best service</p>
+                <a style="background: #008000cc;" href="">Learn More</a>
+            </div>
+
+        </section>
+        
+        
+        
+        <script type="text/javascript" src="{% static 'js/cart.js' %}">
+
+
+
+        </script>
+            
+            
+            
+            
+            
+            
+        
+        
+        
+    </body>
+    
+</html>
+
+
+
+
+
+
+
+

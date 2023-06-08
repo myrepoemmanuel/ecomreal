@@ -101,11 +101,12 @@ let user_menu = document.getElementsByClassName("user_menu")[0];
 
 user_drop_down.addEventListener("click", function(){
     let menu_height = user_menu.getBoundingClientRect().height;
+    let menu_child_height = user_menu.children[0].getBoundingClientRect().height;
 
     if (menu_height < 10){
         // user_menu.classList.remove("hide-item");
 
-        user_menu.style.height = "84px";
+        user_menu.style.height = "max-content";
         user_drop_down.style.transform = 'rotate(0deg)';
         user_menu.classList.remove('user_menu_new');
         user_menu.classList.add('user_menu_old');

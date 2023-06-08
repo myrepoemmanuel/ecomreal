@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RemoveField(
-            model_name='featuredproduct',
+            model_name='products',
             name='vendor',
         ),
         migrations.AddField(
-            model_name='featuredproduct',
+            model_name='products',
             name='vendor',
             field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='vendors.vendor'),
         ),

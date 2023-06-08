@@ -54,7 +54,7 @@ AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,6 +100,18 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'ecom1',
+#         'USER': 'postgres',
+#         'PASSWORD': 'aba123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -141,9 +153,9 @@ STATIC_URL = '/static/'
 
 
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'store/static')
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'store/static')
+]
 
 # STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
 #  Add configuration for static files storage using whitenoise
@@ -158,6 +170,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'store/static/media')
 
+
 LOGIN_REDIRECT_URL = 'store'
 
 LOGIN_URL = 'users:site-login'
@@ -167,30 +180,30 @@ LOGIN_URL = 'users:site-login'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 ORGS_SLUGFIELD = 'django_extensions.db.fields.AutoSlugField'
 
-# aws settings
-AWS_ACCESS_KEY_ID = 'AKIAYIDM7EQZ6AO2K5ZG'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'myecoms'
+# # aws settings
+# AWS_ACCESS_KEY_ID = 'AKIAYIDM7EQZ6AO2K5ZG'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'myecoms'
 
-AWS_DEFAULT_ACL = None
+# AWS_DEFAULT_ACL = None
 
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-DEFAULT_FILE_STORAGE = 'ecom.storage_backend.MediaStorage'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# DEFAULT_FILE_STORAGE = 'ecom.storage_backend.MediaStorage'
 
-# s3 static settings
-AWS_LOCATION = 'static'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'store/static')
-]
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# # s3 static settings
+# AWS_LOCATION = 'static'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'store/static')
+# ]
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-# s3 public media settings
-PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
-PUBLIC_MEDIA_LOCATION = 'media'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+# # s3 public media settings
+# PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
+# PUBLIC_MEDIA_LOCATION = 'media'
+# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
 
 
 

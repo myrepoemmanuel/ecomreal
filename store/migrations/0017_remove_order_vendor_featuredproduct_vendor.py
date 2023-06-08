@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='vendor',
         ),
         migrations.AddField(
-            model_name='featuredproduct',
+            model_name='products',
             name='vendor',
             field=models.ManyToManyField(blank=True, to='vendors.vendor'),
         ),

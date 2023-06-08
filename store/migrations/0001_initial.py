@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Featuredproduct',
+            name='Products',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=200)),
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
                 ('quantity', models.IntegerField(blank=True, default=0, null=True)),
                 ('date_added', models.DateTimeField(auto_now_add=True)),
                 ('order', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.order')),
-                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.featuredproduct')),
+                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.products')),
             ],
         ),
     ]

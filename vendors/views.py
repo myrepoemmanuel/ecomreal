@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Vendor
 from users.models import User
 from .forms import AddProducts
-from store.models import Featuredproduct, Categories, OrderItem, Order, ShippingAddress
+from store.models import Products, Categories, OrderItem, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
@@ -19,7 +19,7 @@ def vendor_dash(request):
     data = cartData(request)
     cartItems = data['cartItems']
     try:
-        products = Featuredproduct.objects.all()
+        products = Products.objects.all()
         try:
             vendor_u = Vendor.objects.filter(vendor_name=request.user.id).values('shop_name')[0]['shop_name']
         except IndexError:
@@ -105,7 +105,7 @@ def my_shop(request, *args, **kwargs):
     print(rev_shop, "rev")
     user = User.objects.get(id=rev_shop)
     request.session['user'] = user.id
-    products = Featuredproduct.objects.filter(vendor=user.vendor)
+    products = Products.objects.filter(vendor=user.vendor)
 
     # create a unique list of categories for vendors
     unique_categories = []
@@ -131,7 +131,7 @@ def vendor_categories(request, *args, **kwargs):
     user = User.objects.get(id=request.session.get("user"))
     vendor = Vendor.objects.get(vendor_name=user)
     print(user)
-    products = Featuredproduct.objects.filter(vendor=user.vendor)
+    products = Products.objects.filter(vendor=user.vendor)
 
     # create a unique list of categories for vendors
     unique_categories = []
@@ -164,12 +164,7 @@ def add_product(request):
                     prod = form.save(commit=False)
                     prod.vendor = request.user.vendor
                     prod.save()
-                    
-                    id = form.cleaned_data.get('id')
-                    print(id)
-                    img_obj = form.instance
-                    print(img_obj, 'img_obj')
-                    
+                    messages.success(request,f"Product {form.cleaned_data['name']} added.")
                     # return redirect("/vendor/dashboard")
                     form = AddProducts()
                     context = {"form":form,"cartItems":cartItems,}
@@ -179,8 +174,8 @@ def add_product(request):
             else:
                 form = AddProducts()
             context = {"form":form,"cartItems":cartItems,}
-        
-    except AttributeError:
+    # else:
+    except:
         print("not vendor")
         messages.success(request, "please verify to be a vendor", extra_tags="helper")
         return redirect("users:site-profile")

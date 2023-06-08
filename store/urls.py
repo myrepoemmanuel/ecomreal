@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-#    path('', views.index, name="index"),
+   path('wabot', views.wabot, name="index"),
     path('', views.store, name="store"),
     path('about/', views.about, name="about"),
     path('contacts/', views.contact, name="site-cont"),
@@ -14,4 +14,5 @@ urlpatterns = [
     path('update_item/', views.updateItem, name="update_item"),
     path('process_order/', views.processOrder, name="process_order"),
     path('process_images/', views.processImages, name="process_images"),
+    path('delete/<int:id>', views.delete_product, name='delete_product'),
 ]

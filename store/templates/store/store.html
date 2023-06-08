@@ -1,5 +1,6 @@
 {% extends 'store/main.html' %}
 {% load static %}
+{% load store %}
 
 
 
@@ -189,7 +190,7 @@
     
     <div class="wrapper-box-1">
         {% for brand in Common_brands %}
-        <a href="{% url 'site-brands' brand.name %}" class="store-child-1 page-tags">
+        <a href="{% url 'site-brands' brand.name|slugify %}" class="store-child-1 page-tags">
 
             <div class="image-holder">
                 <img style="width:100%; height:100%; object-fit: cover;" src="{{brand.imageURL}}" alt="">
@@ -202,150 +203,87 @@
     </div>
 
 <!--    ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-->
+    {% for cat in store_categories %}
     <div class="wrapper-box-parent">
         
-        <p  class="wrapper-box-label label-2-position">Dior</p>
+        <p  class="wrapper-box-label label-2-position">{{cat}}</p>
         
         
 
         <div id="wrapper-box-2" class="wrapper-box-2">
             
             {% for product in products %}
-            <div class="card">
-                <!-- the section below is hidden and used to create slider effect for product details -->
+            {% if product.category|split:" " == cat %}
+                <div class="card">
+                    <!-- the section below is hidden and used to create slider effect for product details -->
 
-                <div class="other-images-1" style="position: absolute;display: none;">
+                    <div class="other-images-1" style="position: absolute;display: none;">
+                        
+                        <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                        <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                        <img class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
+                        <img class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
+                        <img class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
+                        <p>{{ product.price }}</p>
+                        <p>{{ product.description }}</p>
+                    </div>
+
+                    <div class="main_product_image">
+                        <img id="img1" class="mySlides1" src="{{product.imageURL}}" alt="">
+                    </div>
                     
-                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
-                    <p>{{ product.price }}</p>
-                    <p>{{ product.description }}</p>
-                </div>
+                    <!-- the section below is hidden and used to create slider effect for product images -->
 
-                <div style="position: relative; width:100%; height:200px;">
-                    <img id="img1" class="mySlides1" src="{{product.imageURL}}" alt="">
-                </div>
-                
-                <!-- the section below is hidden and used to create slider effect for product images -->
+                    <div class="other-images" style="position: absolute;display: none;">
+                        
+                        <img id="img-1" class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
+                        <img id="img2" class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
+                        <img id="img3" class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
+                        <img id="img4" class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
+                        
+                    </div>
 
-                <div class="other-images" style="position: absolute;display: none;">
+                    <!-- end of hidden product images -->
                     
-                    <img id="img-1" class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
-                    <img id="img2" class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
-                    <img id="img3" class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
-                    <img id="img4" class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
+                    <p id="pname" class="pname">{{ product.name|capfirst }}</p>
                     
-                </div>
+                    
+                    <p class="price">Ksh {{ product.price|floatformat:2 }}</p>
+                    
+                    <div>
+                        <button data-product={{product.id}} data-action='add' class="btn update-cart hide">Add To Cart</button>
+                    </div>
+                    
+                    
+                    <!-- more hidden product details -->
 
-                <!-- end of hidden product images -->
-                
-                <p id="pname" class="pname">{{ product.name|capfirst }}</p>
-                
-                
-                <p class="price">Ksh {{ product.price|floatformat:2 }}</p>
-                
-                <div>
-                    <button data-product={{product.id}} data-action='add' class="btn update-cart hide">Add To Cart</button>
-                </div>
-                
-                
-                <!-- more hidden product details -->
+                    <!-- prod-desc at index 6 -->
+                    <div style="position: absolute;display: none;">
+                        <h4 id="product-description">{{ product.description }}</h4>
+                    </div>
 
-                <!-- prod-desc at index 6 -->
-                <div style="position: absolute;display: none;">
-                    <h4 id="product-description">{{ product.description }}</h4>
                 </div>
-
-            </div>
-            
+            {% endif %}
             {% endfor %}
         </div>
-        <!-- script below to set the parent and children height in good place  -->
-        <script>
-            let new_Fwrap_element = document.getElementsByClassName("wrapper-box-label")[0]
-            let new_Fwrap_width = new_Fwrap_element.getBoundingClientRect()['height'];
-            let wrap_Freceipient = document.getElementsByClassName('wrapper-box-2')
-            console.log(wrap_Freceipient)
-            for(let i=0;i < wrap_Freceipient.length; i++){
-                wrap_Freceipient[i].style.minHeight = new_Fwrap_width + 'px';
-            }
-        </script>
+        <!-- script below to set the products wrapper parent and children height in good place  -->
+        
     </div>
-    
-    <div class="wrapper-box-parent">
-        
-        <p  class="wrapper-box-label label-2-position">Nike</p>
-        
-        
-
-        <div id="wrapper-box-2" class="wrapper-box-2">
-            
-            {% for product in products %}
-            <div class="card">
-                <!-- the section below is hidden and used to create slider effect for product details -->
-
-                <div class="other-images-1" style="position: absolute;display: none;">
-                    
-                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
-                    <img class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
-                    <p>Ksh {{ product.price }}</p>
-                    <p>{{ product.description }}</p>
-                </div>
-
-                <div style="position: relative; width:100%; height:200px;">
-                    <img id="img1" class="mySlides1" src="{{product.imageURL}}" alt="">
-                </div>
-                <!-- the section below is hidden and used to create slider effect for product images -->
-
-                <div class="other-images" style="position: absolute;display: none;">
-                    
-                    <img id="img-1" class="prod-image-btn prod-image-btn-1" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL}}" alt="">
-                    <img id="img2" class="prod-image-btn prod-image-btn-2" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL2}}" alt="">
-                    <img id="img3" class="prod-image-btn prod-image-btn-3" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL3}}" alt="">
-                    <img id="img4" class="prod-image-btn prod-image-btn-4" style="width:100%; height:100%; object-fit: contain;" src="{{product.imageURL4}}" alt="">
-                    
-                </div>
-
-                <!-- end of hidden product images -->
-                
-                <p id="pname" class="pname">{{ product.name|capfirst }}</p>
-                
-                
-                <p class="price">Ksh {{ product.price|floatformat:2 }}</p>
-                
-                <div>
-                    <button data-product={{product.id}} data-action='add' class="btn update-cart hide">Add To Cart</button>
-                </div>
-                
-                
-                <!-- more hidden product details -->
-
-                <!-- prod-desc at index 6 -->
-                <div style="position: absolute;display: none;">
-                    <h4 id="product-description">{{ product.description }}</h4>
-                </div>
-
-            </div>
-            
-            {% endfor %}
-        </div>
-        <!-- script below to set the parent and children height in good place  -->
-        <script>
-            let new_wrap_element = document.getElementsByClassName("wrapper-box-label")[0]
+    {% endfor %}
+    <script>
+        let label_elements = document.getElementsByClassName("wrapper-box-label")
+        for(let j=0;j < label_elements.length - 1; j++){
+            let new_wrap_element = label_elements[j+1]
             let new_wrap_width = new_wrap_element.getBoundingClientRect()['height'];
-            let wrap_receipient = document.getElementsByClassName('wrapper-box-2')
+            let wrap_receipient = document.getElementsByClassName('wrapper-box-2')[j]
             console.log(wrap_receipient)
-            for(let i=0;i < wrap_receipient.length; i++){
-                wrap_receipient[i].style.minHeight = new_wrap_width + 'px';
-            }
-        </script>
-    </div>
+            
+            wrap_receipient.style.minHeight = new_wrap_width + 'px';
+            
+        }
+    </script>
+    
+    
 
 
 
@@ -621,11 +559,11 @@
 
 
 
-        // product_card clicking function........................
+        // product_image clicking function........................
         let prod_card = document.getElementsByClassName("card")
 
         for(let i=0; i < prod_card.length;i++){
-            prod_card[i].addEventListener("click", function(){
+            document.getElementsByClassName("main_product_image")[i].addEventListener("click", function(){
                 let p_tag = prod_card[i].children[3];
                 overlaycard(p_tag);
                 getImages(p_tag);

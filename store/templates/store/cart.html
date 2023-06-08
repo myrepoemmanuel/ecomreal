@@ -35,10 +35,10 @@
                 </table>
                  
                  
-             
-             </div>
-             
-              <div style="background: rgba(255, 255, 255, 0.3); border-radius: 5px; color: white; padding: 30px; font-size: 22px;" class="box-element">
+            
+            </div>
+            
+            <div style="background: rgba(255, 255, 255, 0.3); border-radius: 5px; color: white; padding: 30px; font-size: 22px;" class="box-element">
                 <div class="cart-rows" style="background:rgba(0, 0, 0, 0.6); border-radius: unset; color: white;">
                     <div style="grid-column-start: 1;"></div>
                     <div style="grid-column-start: 2;"><strong>Item</strong></div>
@@ -48,35 +48,36 @@
                     
                 </div>
                 
-                    
+                
                 
                 {% for item in items %}
                 <div class="cart-rows-hidden hide">
-                   <div style="width: 100%; height: auto;">
-                         <img style="width: 100%; height: 100%; object-fit: scale-down;" src="{{ item.product.imageURL }}" alt="product image">
-                     </div>
-                     <div style="display: grid; grid-auto-rows: 70px 70px 70px;">
-                         <div><p style="font-weight: 600;"><i>{{ item.product.name|capfirst }}</i></p></div>
-                         
-                          <div>
-                            <p style="font-size: 18px; color: yellowgreen;">Ksh {{item.product.price}}</p>
-                          </div>
-                          
-                          <div style="position: relative; display: grid; grid-template-columns: repeat(3, 1fr); place-items: center; background: rgba(204, 214, 214, 0.7); border-radius: 8px; padding: 0 10px;">
-                             
-                              <p style="background: green; color: white; font-weight: 400; width: 30px;height: 30px; border-radius: 50%; display: grid; place-items: center;" data-product="{{item.product.id}}" data-action="add" class="update-cart">+</p>
 
-                              <p style="background:rgba(255, 255, 255, 0.5); padding: 5px 15px; display:grid; place-items:center; border-radius: 8px;">{{item.quantity}}</p>
+                    <div style="width: 100%; height: auto;">
+                        <img style="width: 100%; height: 100%; object-fit: scale-down;" src="{{ item.product.imageURL }}" alt="product image">
+                    </div>
+                    <div class="child-2">
+                        <div><p style="font-weight: 600;"><i>{{ item.product.name|capfirst }}</i></p></div>
+                        
+                        <div>
+                            <p style="color: yellowgreen;">Ksh {{item.product.price}}</p>
+                        </div>
+                        
+                        <div class="cart-buttons">
+                            
+                            <p style="background: green; color: white; font-weight: 400; width: 30px;height: 30px; border-radius: 50%; display: grid; place-items: center;" data-product="{{item.product.id}}" data-action="add" class="update-cart">+</p>
 
-                              <p style="background: red; padding-top: -9px; color: white; font-weight: 400; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;"  data-product="{{item.product.id}}" data-action="remove" class="update-cart">-</p>
-                              
-                          </div>
-                          
-                          <div><p> <span style="color: green;">SUBTOTAL:</span> Ksh {{ item.get_total }}</p></div>
-                          
-                          
-                         
-                     </div>
+                            <p style="background:rgba(255, 255, 255, 0.5); padding: 5px 15px; display:grid; place-items:center; border-radius: 8px;">{{item.quantity}}</p>
+
+                            <p style="background: red; padding-top: -9px; color: white; font-weight: 400; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;"  data-product="{{item.product.id}}" data-action="remove" class="update-cart">-</p>
+                            
+                        </div>
+                        
+                        <div><p> <span style="color: green;">SUBTOTAL:</span> Ksh {{ item.get_total }}</p></div>
+                        
+                        
+                        
+                    </div>
                     
                 </div>
                 <div class="cart-rows">
@@ -117,11 +118,11 @@
                     
                 </div>
                 {% endfor %}
-                  
-             </div>
-             
-             
-         </div>
+            
+            </div>
+            
+
+        </div>
 
          
      </div>

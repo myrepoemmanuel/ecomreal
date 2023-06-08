@@ -8,7 +8,7 @@
         gap: 10px;
         position: relative;
         top: 7.5rem;
-        width: max-content;
+        width: 55%;
         margin: auto;
         padding: 20px;
         background-color: #485564;
@@ -61,7 +61,7 @@
 
     .product_image_parent{
         display: grid; 
-        grid-template-columns: 1fr 1fr; 
+        grid-template-columns: repeat(auto-fit, minmax(200px , 250px)); 
         gap: 10px;
         width: 100%;
         
@@ -89,9 +89,13 @@
 
     <div class="pg-cont add_product_form">
         <h2 style="margin: 0; color: #39a984a3;">Add Product</h2>
-
+        {% if form.errors %}
+            <span>{{ form.errors }}</span>
+        {% endif %}
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+            
+            
 
             <div class="details_parent">
                 <div class="product_input_parent">
@@ -109,6 +113,15 @@
                     </div>
                     <div>
                         <span>{{ form.price }}</span>
+                    </div>
+                </div>
+
+                <div class="product_input_parent">
+                    <div>
+                        <span>{{ form.mainCategory.label }}</span>
+                    </div>
+                    <div>
+                        <span>{{ form.mainCategory }}</span>
                     </div>
                 </div>
 

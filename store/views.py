@@ -1,8 +1,9 @@
 from distutils.command.clean import clean
 from unicodedata import name
 from django.shortcuts import render
+from django.urls import reverse
 from .models import *
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 import json
 from json import dumps
 import datetime
@@ -17,11 +18,10 @@ User = settings.AUTH_USER_MODEL
 
 
 # Create your views here.
-#def index(request):
-#    
-#    context = {}
-#    return render(request, 'store/index.html', context)
-#    shipping = ShippingAdress()
+def wabot(request):
+   
+   context = {}
+   return render(request, 'store/wabot.html', context)
 
 
 def about(request):   
@@ -42,14 +42,14 @@ def brandNames(request, *args, **kwargs):
     data = cartData(request)
     cartItems = data['cartItems']
     brand_name = kwargs['slug']
-    print(brand_name)
 
-    products = Featuredproduct.objects.filter(name__contains=brand_name)
-    # get category id
-    category_id = BrandCategories.objects.get(name=brand_name)
-    miniBrand_Categories = BrandMiniCategories.objects.filter(brand_categories=category_id)
+    new_b_name = (" ").join( ( brand_name.split('-') ) )
+    mainCategoryid = Categories.objects.get(name=new_b_name.title())
+    products = Products.objects.filter(mainCategory=mainCategoryid)
     
-    context = {'products':products, 'cartItems':cartItems,'title':brand_name,'miniBrand_Categories':miniBrand_Categories,}
+    Brand_Categories = BrandCategories.objects.filter(main_categories_id=mainCategoryid)
+    
+    context = {'products':products, 'cartItems':cartItems,'title': new_b_name.title(),'Brand_Categories':Brand_Categories,}
     return render(request, 'store/all_brands.html', context)
 
 
@@ -57,7 +57,6 @@ def processImages(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
     product_name = data['productname']['prod_name']
-    print(f"clicked prod::{product_name}")
     
     request.session["product_name"] = product_name
     return JsonResponse('image processed', safe=False)
@@ -68,7 +67,7 @@ def store(request):
     data = cartData(request)
     cartItems = data['cartItems']
         
-    products = Featuredproduct.objects.all()
+    products = Products.objects.all()
     product_db = productDet(request,products)
 
     #getting a complete order_id
@@ -88,27 +87,35 @@ def store(request):
         #getting the order items with the complete order_id 
         Orderitem_list = OrderItem.objects.filter(order_id=order)
 
-        print(Orderitem_list)
-        # print(Featuredproduct.objects.filter(name=Orderitem_list[0])[0].id)
-        print(order)
+        print(Orderitem_list, "Orderitem_list LINE 92")
+        # print(Products.objects.filter(name=Orderitem_list[0])[0].id)
+        print(order, "Orderitem_list LINE 94")
 
         #checking the vendor for each product in the complete order query to alert them of a sale
-        for i in Orderitem_list.values():
-            prod_id = Featuredproduct.objects.filter(id=i["product_id"])
+        # for i in Orderitem_list.values():
+        #     prod_id = Products.objects.filter(id=i["product_id"])
 
-            print(f"{Vendor.objects.filter(featuredproduct__id=i['product_id'])} ### {prod_id}")
+        #     print(f"{Vendor.objects.filter(product__id=i['product_id'])} ### {prod_id}")
         
-    Common_brands = BrandCategories.objects.all()
+    Common_brands = Categories.objects.all()
     prod_category = products.filter().values('id','name','category_id')
+
+    store_categories_id = products.filter().values('category_id')
+    store_categories = []
+    for s_cat in store_categories_id:
+        store_categories_name = BrandCategories.objects.get(id=s_cat['category_id'])
+        store_categories.append(store_categories_name.name)
+
+
     clean_prod_category = []
     for i in prod_category:
         category_name = BrandCategories.objects.filter(id=i['category_id']).values('name')[0]['name']
         i['category_id'] = category_name
         clean_prod_category.append(i)
-    print(product_db['search_db'])
     
     context = {
         'products':products,
+        'store_categories':list(set(store_categories)),
         'clean_prod_category':dumps(clean_prod_category),
         "each_product_db":product_db['each_product_db'],
         'search_db':product_db['search_db'], 
@@ -135,6 +142,8 @@ def checkout(request):
     order = data['order']
     items = data['items']
 
+    
+
     context = {'items':items, 'order':order, 'cartItems':cartItems,'title':'checkout',}
     return render(request, 'store/checkout.html', context)
 
@@ -147,7 +156,10 @@ def updateItem(request):
     
     
     customer = request.user.customer
-    product = Featuredproduct.objects.get(id=productId)
+    product = Products.objects.get(id=productId)
+
+    list_of_orders = []
+    
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product, productId=productId)
     
@@ -173,6 +185,10 @@ def processOrder(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         
+        # for orders in Order.objects.filter().values():
+        #     if len(str(orders['transaction_id'])) < 4:
+        #         print(str(orders['transaction_id']))
+        #         Order.objects.get(id=orders['id']).delete()
         
         
 
@@ -184,8 +200,8 @@ def processOrder(request):
     order.transaction_id = transaction_id
     
     if total == float(order.get_cart_total):
-        order.complete = True
-        order.pending = False
+        order.complete = False
+        order.pending = True
         order.cancelled = False
     order.save()
 
@@ -203,9 +219,14 @@ def processOrder(request):
 
     return JsonResponse('payment complete', safe=False)
 
+def delete_product(request, id):
+    member = Products.objects.get(id=id)
+    member.delete()
+    return HttpResponseRedirect(reverse('vendors:vendor_dash'))
 
+def error_404_view(request, exception):
 
-
+    return render(request, 'store/404.html')
 
 
 

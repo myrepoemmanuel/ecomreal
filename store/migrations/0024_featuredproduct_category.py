@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='featuredproduct',
+            model_name='products',
             name='category',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='store.categories'),
         ),

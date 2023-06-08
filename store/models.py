@@ -1,4 +1,5 @@
 
+from tabnanny import verbose
 from django.db import models
 from vendors.models import Vendor
 from django.db.models.signals import post_save, pre_save
@@ -19,9 +20,9 @@ class Customer(models.Model):
 
 @receiver(post_save, sender=User)
 def create_customer(sender, instance, created, *args, **kwargs):
-   if created:
-       Customer.objects.create(user=instance, email=instance.email, name=instance.user_name)
-       print(instance, 'customer created')
+    if created:
+        Customer.objects.create(user=instance, email=instance.email, name=instance.user_name)
+        print(instance, 'customer created')
 
 
 @receiver(post_save, sender=User)
@@ -87,9 +88,16 @@ class BrandMiniCategories(models.Model):
     
     def __str__(self):
         return f"{self.name}, {self.brand_categories}"
+    
+    # def save(self, *args, **kwargs):
+    #     if not self.name:
+    #         self.name = str(self.brand_categories).split(' ')[0]
+    #         print(self.name)
+    #     return super().save(*args, **kwargs)
 
-class Featuredproduct(models.Model):
+class Products(models.Model):
     name = models.CharField(max_length=200)
+    mainCategory = models.ForeignKey(Categories, null=True, on_delete=models.CASCADE)
     category = models.ForeignKey(BrandCategories, null=True, on_delete=models.CASCADE)
     vendor = models.ForeignKey(Vendor, null=True, blank=True, on_delete=models.CASCADE)
     price = models.FloatField()#models.DecimalField(max_digits=6, decimal_places=2)
@@ -103,6 +111,9 @@ class Featuredproduct(models.Model):
     
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Products'
     
     @property
     def imageURL(self):
@@ -174,7 +185,7 @@ class Order(models.Model):
     
     
 class OrderItem(models.Model):   
-    product = models.ForeignKey(Featuredproduct, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Products, on_delete=models.SET_NULL, null=True)
     productId = models.CharField(max_length=255, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)

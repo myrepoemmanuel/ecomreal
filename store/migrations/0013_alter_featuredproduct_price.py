@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='featuredproduct',
+            model_name='products',
             name='price',
             field=models.FloatField(),
         ),

@@ -5,7 +5,7 @@
     
     <div style="box-shadow: inset -5px -5px 1000px 0px black,0px 0px 30px 5px black;" class="child-1">
        
-        <div style="padding: 0 1px; margin-top: 0; color: whitesmoke;" class="addr-form-det">   
+        <div class="addr-form-det checkout_header">   
              <h2>Shipping Information</h2>
             
         </div>
@@ -29,12 +29,12 @@
                 <input class="box-inputs" name="address" type="text" placeholder="Address">
             </div>
 
-            <div class="addr-form-det">
+            <div class="addr-form-det" style="grid-column: span 2;">
                 <input class="box-inputs" name="postalcode" type="text" placeholder="Postal Code">
             </div>
 
             <div style="border-bottom: none;" class="addr-form-det">
-                <input style="margin-bottom: 20px;" class="ship-btn" type="submit" value="Submit">
+                <input class="ship-btn" type="submit" value="Submit">
             </div>
         </div>
     <!--        hidden items in checkout page-->
@@ -85,7 +85,7 @@
         
         <div class="addr-form-det">
             
-            <a style="text-decoration: none; background-color:rgb(158, 145, 145);" class="success-btn" href="{% url 'cart' %}">Back to Cart</a>
+            <a style="padding: 10px; text-decoration: none; background-color:rgb(158, 145, 145);" class="success-btn" href="{% url 'cart' %}">Back to Cart</a>
             
         </div>
         

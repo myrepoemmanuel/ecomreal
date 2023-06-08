@@ -22,7 +22,7 @@ def cookieCart(request):
 		try:
 			cartItems += cart[i]['quantity']
 
-			product = Featuredproduct.objects.get(id=i)
+			product = Products.objects.get(id=i)
 			total = (product.price * cart[i]['quantity'])
 
 			order['get_cart_total'] += total
@@ -108,7 +108,7 @@ def guestOrder(request,data):
 	order = Order.objects.create(customer=customer,complete=False)
 
 	for item in items:
-		product = Featuredproduct.objects.get(id=item['product']['id'])
+		product = Products.objects.get(id=item['product']['id'])
 
 		orderItem = OrderItem.objects.create(
 			product=product,

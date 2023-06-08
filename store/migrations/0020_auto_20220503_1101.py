@@ -13,27 +13,27 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='featuredproduct',
+            model_name='products',
             name='image',
             field=models.ImageField(blank=True, null=True, upload_to='img'),
         ),
         migrations.AlterField(
-            model_name='featuredproduct',
+            model_name='products',
             name='image2',
             field=models.ImageField(blank=True, null=True, upload_to='img'),
         ),
         migrations.AlterField(
-            model_name='featuredproduct',
+            model_name='products',
             name='image3',
             field=models.ImageField(blank=True, null=True, upload_to='img'),
         ),
         migrations.AlterField(
-            model_name='featuredproduct',
+            model_name='products',
             name='image4',
             field=models.ImageField(blank=True, null=True, upload_to='img'),
         ),
         migrations.AlterField(
-            model_name='featuredproduct',
+            model_name='products',
             name='vendor',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='vendors.vendor'),
         ),
